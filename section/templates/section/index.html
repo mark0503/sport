@@ -1,0 +1,56 @@
+{% extends "section/../base.html" %} 
+{% block title %}Главная{% endblock %}
+{% block content %} 
+
+
+    <div class="main">
+        <div class='main_info'>
+            <h1 class='heading'>InSport</h1>
+            <p>информация по сайту</p>
+        </div>
+            <div class="button">
+                
+
+                <a href="{% url 'list' %}">Кнопка тут</a>
+            </div>
+    </div>
+    <style>
+    body{
+  margin: 0;
+  background-color: white;
+}
+img{
+  max-width: 1366px;
+}
+.background_image{
+  position: relative;
+  text-align: center;
+
+}  
+.main_info{
+  position: absolute;
+  top: 0;
+  margin-top: 100px;
+  margin-left: 120px;
+  line-height: 1.5;
+}
+.button_section{
+  position: absolute;
+  width: 300px;
+  height: 150px;
+  top: 0;
+  margin-left: 120px;
+  margin-top: 250px;
+  background-color: #30d5c8;
+  color: white;
+  border-radius: 8%;
+}
+.button_section:active, .button_section:focus {
+  outline: none;
+}
+.button_section::-moz-focus-inner {
+  border: 0;
+}
+    </style>
+
+{% endblock %} 

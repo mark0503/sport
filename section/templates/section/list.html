@@ -1,0 +1,28 @@
+{% extends "posts/../base.html" %} 
+
+{% block title %}Последние обновления на сайте{% endblock %}
+{% block content %}
+    <form action="" method="GET">
+        {{ form.as_p }}
+        <input type="submit" value="Поиск">
+    </form>
+    <form action="{% url 'list' %}">
+        <input type="search" name="search"><p>
+        <button type="submit" class="btn1 btn">Поиск</button>
+    </form>
+    {% for post in page %} 
+    <h3>{{ post.title|linebreaksbr }}</h3> 
+    <p> 
+        Дата: {{ post.pub_date|date:"d M Y" }} 
+    </p> 
+    <a class="btn btn-lg btn-primary" 
+    href="{% url 'post_view' post.id %}" role="button">
+     Описание секции 
+    </a>        
+    {% if not forloop.last %}<hr>{% endif %} 
+    {% endfor %} 
+    {% if page.has_other_pages %}
+            {% include "paginator.html" with items=page paginator=paginator%}
+    {% endif %}
+ 
+{% endblock %}  
