@@ -2,6 +2,8 @@
 
 {% block content %}
     <div class="post">
+        <img src="../../users/{{post.image}}" width="500" height="300"/>
+
         {% if post.pub_date %}
             <div class="date">
                 {{ post.pub_date }}
@@ -12,9 +14,11 @@
         <h1>Возраст: {{ post.age }}</h1>
         <h1>Рассписание: {{ post.time_plan }}</h1>
         <h1>Телефон: {{ post.phone }}</h1>
+        <h1>Стоимость: {{ post.price }}</h1>
         <p>Дата создания: {{ post.pub_date|date:"d.m.Y"|linebreaksbr }}</p>
     </div>
     <form method="post" action="{% url 'add_comment' post.author.username post.pk %}">
         {% include "comments.html" with form=form %}
     </form>
+    <a class="btn btn-sm text-muted" href="{% url 'add_apeal' post.author.username post.pk%}"role="button">Пожаловаться</a>
 {% endblock %}

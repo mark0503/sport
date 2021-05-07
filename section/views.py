@@ -12,10 +12,16 @@ from django.core.paginator import Paginator
 def index(request):
     return render(request, 'index.html')
 
-class SignUp(CreateView):
-    form_class = CreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'signup.html'
+def sign_up(request):
+    if request.method == 'POST':
+        form = CreationForm(request.POST or None, files=request.FILES or None)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+        return render(request, 'signup.html', {'form': form})
+    form = CreationForm()
+    return render(request, 'signup.html', {'form': form})
+
 
 def list_class(request):
     filter_list = Anketa.objects.all().order_by('-pub_date')
@@ -24,8 +30,7 @@ def list_class(request):
     search_query = request.GET.get('search', '')
     if search_query:
         filter_list = filter_list.filter(title__icontains=search_query)
-    else:
-        filter_list = Anketa.objects.all().order_by('-pub_date')
+    
     if form.is_valid():
         if form.cleaned_data['min_price']:
             filter_list = filter_list.filter(price__gte=form.cleaned_data['min_price'])
@@ -65,10 +70,11 @@ def new_post(request):
 
 
 def post_view(request, pk):
+    username = request.user
     form = CommentForm(request.POST or None)
     post = get_object_or_404(Anketa, pk=pk)
     comments = post.comments.all()
-    return render(request, 'list_detail.html', {'post': post, 'form': form, 'comments': comments})
+    return render(request, 'list_detail.html', {'post': post, 'form': form, 'comments': comments, 'username': username})
 
 
 @login_required
@@ -133,7 +139,7 @@ def post_delete(request, post_id):
 
 
 def delete_profile(request, username):
-    u = UserProfile.objects.get(username=username)
+    u = UserProfile.objects.get(request.POST or None, files=request.FILES or None)
     if request.user.id is not u.id:
         return redirect('index')
     u = UserProfile.objects.get(username=username).delete()

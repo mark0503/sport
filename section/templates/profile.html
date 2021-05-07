@@ -10,7 +10,6 @@
                                     <div class="h2"> 
                                         {{ username.get_full_name }} 
                                     </div>
-                                    
                                     <div class="h3 text-muted"> 
                                          {{ username }} 
                                     </div> 
@@ -31,7 +30,7 @@
                     </div> 
             </div> 
             <div class="col-md-9"> 
-                <img src="../../users/{{username.image}}" width="500" height="300"/>
+                <img src="../../users/{{username.image}}" width="500" height="300"/><p>
                 Название компании: {{ username.username}}<p>
                 Имя: {{ username.first_name }}<p>
                 Фамилия: {{ username.last_name }}<p>

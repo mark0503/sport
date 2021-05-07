@@ -8,11 +8,9 @@
             <h1 class='heading'>InSport</h1>
             <p>информация по сайту</p>
         </div>
-            <div class="button">
-                
-
-                <a href="{% url 'list' %}">Кнопка тут</a>
-            </div>
+        <form action="{% url 'list' %}" method="GET">
+            <button type="submit" class="button_section">Кнопка поиска анкеты</button>
+        </form>
     </div>
     <style>
     body{
